@@ -81,34 +81,14 @@ develocity {
       isEnabled = true
       // 缓存路径可以不设置，使用默认即可
     }
-//    remote<HttpBuildCache> {
-//      allowUntrustedServer = true
-//      isEnabled = true
-//      url = uri("https://nexue.yallalive.cn/repository/gradle-cache-repository-test/")
-//      isPush = true // 允许将缓存推送到远程服务器
-//      credentials {
-//        username = "linpanpan"
-//        password = "Lpp19930620.."
-//      }
-//    }
-//    remote<HttpBuildCache> {
-//      allowUntrustedServer = true
-//      isEnabled = true
-//      url = uri("https://localhost:8443/repository/gradle-cache-repository/")
-//      isPush = true // 允许将缓存推送到远程服务器
-//      credentials {
-//        username = "admin"
-//        password = "123456"
-//      }
-//    }
     remote<HttpBuildCache> {
       allowUntrustedServer = true
       isEnabled = true
-      url = uri("https://172.20.14.3/repository/raw-yalla-android-remote-cache-test/")
+      url = uri(xxx)
       isPush = true // 允许将缓存推送到远程服务器
       credentials {
-        username = "ios"
-        password = "Z7tvVUMU"
+        username = "username"
+        password = "password"
       }
     }
   }
