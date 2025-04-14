@@ -1,3 +1,9 @@
+import java.security.cert.X509Certificate
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+import javax.net.ssl.SSLContext
+import javax.net.ssl.HttpsURLConnection
+
 pluginManagement {
   repositories {
     google()
@@ -32,6 +38,78 @@ dependencyResolutionManagement {
     }
     create("lintLibs") {
       from(files("gradle/lint-libs.versions.toml"))
+    }
+  }
+}
+
+plugins {
+  id("com.gradle.develocity") version "3.19.2"
+}
+
+// settings.gradle.kts 中添加：
+
+fun disableSslVerification() {
+  try {
+    val trustAllCerts = arrayOf<TrustManager>(
+      object : X509TrustManager {
+        override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+        override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+        override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+      }
+    )
+
+    val sslContext = SSLContext.getInstance("SSL")
+    sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+    HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+    HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
+
+    println("✅ SSL verification disabled for all HTTPS connections")
+  } catch (e: Exception) {
+    println("⚠️ Failed to disable SSL verification: ${e.message}")
+  }
+}
+
+disableSslVerification()
+
+develocity {
+  buildScan {
+    termsOfUseUrl = "https://gradle.com/terms-of-service"
+    termsOfUseAgree = "yes"
+  }
+  buildCache {
+    local {
+      isEnabled = true
+      // 缓存路径可以不设置，使用默认即可
+    }
+//    remote<HttpBuildCache> {
+//      allowUntrustedServer = true
+//      isEnabled = true
+//      url = uri("https://nexue.yallalive.cn/repository/gradle-cache-repository-test/")
+//      isPush = true // 允许将缓存推送到远程服务器
+//      credentials {
+//        username = "linpanpan"
+//        password = "Lpp19930620.."
+//      }
+//    }
+//    remote<HttpBuildCache> {
+//      allowUntrustedServer = true
+//      isEnabled = true
+//      url = uri("https://localhost:8443/repository/gradle-cache-repository/")
+//      isPush = true // 允许将缓存推送到远程服务器
+//      credentials {
+//        username = "admin"
+//        password = "123456"
+//      }
+//    }
+    remote<HttpBuildCache> {
+      allowUntrustedServer = true
+      isEnabled = true
+      url = uri("https://172.20.14.3/repository/raw-yalla-android-remote-cache-test/")
+      isPush = true // 允许将缓存推送到远程服务器
+      credentials {
+        username = "ios"
+        password = "Z7tvVUMU"
+      }
     }
   }
 }
@@ -103,3 +181,5 @@ project(":video").projectDir = file("video/lib")
 project(":video-app").projectDir = file("video/app")
 
 rootProject.name = "Signal"
+
+
