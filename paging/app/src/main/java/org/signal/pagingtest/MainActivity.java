@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements EventListener {
       adapter.submitList(newList);
     });
 
-    findViewById(R.id.invalidate_btn).setOnClickListener(v -> {
-      viewModel.getPagingController().onDataInvalidated();
-    });
+//    findViewById(R.id.invalidate_btn).setOnClickListener(v -> {
+//      viewModel.getPagingController().onDataInvalidated();
+//    });
 
     findViewById(R.id.down250_btn).setOnClickListener(v -> {
       int target = Math.min(adapter.getItemCount() - 1, layoutManager.findFirstVisibleItemPosition() + 250);

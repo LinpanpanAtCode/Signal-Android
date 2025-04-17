@@ -110,7 +110,7 @@ internal class BillingApiImpl(
         BillingPurchaseResult.NetworkError
       }
       BillingResponseCode.DEVELOPER_ERROR -> {
-        Log.d(TAG, "purchasesUpdatedListener: Developer error.")
+        Log.d(TAG, "purchasesUpdatedListener: Developer error 1111.")
         BillingPurchaseResult.GenericError
       }
       BillingResponseCode.FEATURE_NOT_SUPPORTED -> {
