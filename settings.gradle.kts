@@ -76,21 +76,18 @@ develocity {
     termsOfUseUrl = "https://gradle.com/terms-of-service"
     termsOfUseAgree = "yes"
   }
-  buildCache {
-    local {
-      isEnabled = true
-      // 缓存路径可以不设置，使用默认即可
+}
+
+buildCache {
+  remote<HttpBuildCache> {
+    url = uri("https://172.20.14.3/repository/raw-yalla-android-remote-cache-test/")
+    isPush = true
+    credentials {
+      username = "ios" // 替换为您的用户名
+      password = "Z7tvVUMU" // 替换为您的密码
     }
-    remote<HttpBuildCache> {
-      allowUntrustedServer = true
-      isEnabled = true
-      url = uri(xxx)
-      isPush = true // 允许将缓存推送到远程服务器
-      credentials {
-        username = "username"
-        password = "password"
-      }
-    }
+    isAllowInsecureProtocol = true // 允许使用不安全的协议 (HTTP)
+    isAllowUntrustedServer = true  // 允许连接到证书不受信任的服务器
   }
 }
 

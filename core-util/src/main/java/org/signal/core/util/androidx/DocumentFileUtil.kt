@@ -52,11 +52,13 @@ object DocumentFileUtil {
 
   /** Returns a [DocumentFile] for directory by [name], creating it if it doesn't already exist */
   fun DocumentFile.mkdirp(name: String): DocumentFile? {
+    println("----------->>>")
     return findFile(name) ?: createDirectory(name)
   }
 
   /** Open an [OutputStream] to the file represented by the [DocumentFile] */
   fun DocumentFile.outputStream(context: Context): OutputStream? {
+    println("----------->>>")
     return context.contentResolver.openOutputStream(uri)
   }
 

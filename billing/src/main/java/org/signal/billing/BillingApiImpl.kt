@@ -72,11 +72,13 @@ internal class BillingApiImpl(
       BillingResponseCode.OK -> {
         if (purchases == null) {
           Log.d(TAG, "purchasesUpdatedListener: No purchases.")
+          Log.d(TAG, "purchasesUpdatedListener: No purchases.")
           BillingPurchaseResult.None
         } else {
           Log.d(TAG, "purchasesUpdatedListener: ${purchases.size} purchases.")
           val newestPurchase = purchases.maxByOrNull { it.purchaseTime }
           if (newestPurchase == null) {
+            Log.d(TAG, "purchasesUpdatedListener: no purchase.")
             Log.d(TAG, "purchasesUpdatedListener: no purchase.")
             BillingPurchaseResult.None
           } else {

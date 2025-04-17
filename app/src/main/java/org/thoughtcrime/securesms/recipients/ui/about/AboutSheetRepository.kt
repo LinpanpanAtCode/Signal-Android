@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.recipients.ui.about
 
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.rx3.rxSingle
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -16,6 +17,9 @@ import org.thoughtcrime.securesms.recipients.RecipientId
 class AboutSheetRepository {
 
   fun getGroupsInCommonCount(recipientId: RecipientId): Single<Int> {
+    flow {
+      emit(200)
+    }
     return rxSingle { GroupsInCommonRepository.getGroupsInCommonCount(recipientId) }
   }
 
